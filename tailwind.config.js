@@ -1,3 +1,5 @@
+// const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     './components/**/*.{js,vue,ts}',
@@ -7,7 +9,15 @@ module.exports = {
     './nuxt.config.{js,ts}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'deep-blue': '#01064A',
+        // amber: colors.amber,
+        // purple: colors.purple,
+        // teal: colors.teal,
+        // cyan: colors.cyan,
+      },
+    },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 }
