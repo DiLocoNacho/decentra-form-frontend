@@ -1,0 +1,74 @@
+[
+  {
+    "type": "shortText",
+    "typeDescription": "This element has a single line of text.",
+    "name": "Short Text",
+    "title": "Your Title",
+    "description": "Describe your question",
+    "placeholder": "Placeholder Answer",
+    "required": false,
+    "color": "bg-red-400"
+  },
+  {
+    "type": "longText",
+    "typeDescription": "This element has multiple lines of text.",
+    "name": "Long Text",
+    "title": "Your Title",
+    "description": "Describe your question",
+    "placeholder": "Placeholder Answer",
+    "required": false,
+    "color": "bg-blue-400"
+  },
+  {
+    "type": "email",
+    "typeDescription": "This element has an email address.",
+    "name": "Email",
+    "title": "Your Title",
+    "description": "Describe your question",
+    "placeholder": "Placeholder Answer",
+    "required": false,
+    "color": "bg-amber-400"
+  },
+  {
+    "type": "number",
+    "typeDescription": "This element has a number with a min and max value.",
+    "name": "Number",
+    "title": "Your Title",
+    "description": "Describe your question",
+    "placeholder": 1,
+    "required": false,
+    "color": "bg-green-400"
+  },
+  {
+    "type": "select",
+    "typeDescription": "This element lets the user select one of your options.",
+    "name": "Select",
+    "title": "Your Title",
+    "description": "Describe your question",
+    "placeholder": "Placeholder Answer",
+    "required": false,
+    "color": "bg-purple-400",
+    "options": []
+  },
+  {
+    "type": "checkbox",
+    "typeDescription": "This element lets the user select multiple options.",
+    "name": "Checkbox",
+    "title": "Your Title",
+    "description": "Describe your question",
+    "placeholder": "Placeholder Answer",
+    "required": false,
+    "color": "bg-teal-400",
+    "options": []
+  },
+  {
+    "type": "yesNo",
+    "typeDescription": "This element lets the user answer yes or no.",
+    "name": "Yes/No",
+    "title": "Your Title",
+    "description": "Describe your question",
+    "placeholder": "Placeholder Answer",
+    "required": false,
+    "color": "bg-cyan-400"
+  }
+]

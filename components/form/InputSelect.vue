@@ -68,12 +68,13 @@
         Highlighted: "text-white bg-indigo-600", Not Highlighted: "text-gray-900"
       -->
         <li
-          id="listbox-option-0"
+          v-for="(option, index) in config.options"
+          :key="index"
           class="text-gray-900 cursor-default select-none relative py-2 pl-8 pr-4"
           role="option"
         >
           <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
-          <span class="font-normal block truncate"> Wade Cooper </span>
+          <span class="font-normal block truncate"> {{ option.option }} </span>
 
           <!--
           Checkmark, only display for selected option.

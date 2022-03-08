@@ -1,8 +1,8 @@
 <template>
   <div class="h-full min-h-screen flex">
-    <AppPopoverItems
-      v-show="showSlideOver"
-      @close="showSlideOver = false"
+    <AppPopupItems
+      v-show="showPopup"
+      @close="showPopup = false"
       @addStep="addStep($event)"
     />
     <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
@@ -281,7 +281,7 @@
                 <button
                   type="button"
                   class="relative inline-flex items-center p-1 border border-transparent shadow-sm text-sm font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  @click="showSlideOver = true"
+                  @click="showPopup = true"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -308,13 +308,16 @@
                 @start="drag = true"
                 @end="drag = false"
               >
-                <div
+                <li
                   v-for="(step, index) in steps"
                   :key="index"
                   :class="selectedStep.id === step.id ? 'bg-gray-200' : ''"
                   class="flex px-5 py-3 items-center space-x-2 cursor-move"
                   @click="selectStep(step)"
                 >
+                  <p class="mr-2 text-gray-700 text-opacity-60">
+                    {{ index + 1 }}.
+                  </p>
                   <div :class="step.color" class="rounded-lg p-1">
                     <img
                       :src="require(`../../assets/${step.type}.svg`)"
@@ -322,8 +325,10 @@
                       class="h-4 w-4 text-white"
                     />
                   </div>
-                  <p>{{ step.name }}</p>
-                </div>
+                  <p class="text-lg text-gray-900">
+                    {{ step.name }}
+                  </p>
+                </li>
               </draggable>
             </ul>
           </div>
@@ -370,7 +375,7 @@
       </div>
       <div class="flex-1 relative z-0 flex overflow-hidden">
         <main
-          class="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last"
+          class="flex-1 relative z-0 overflow-y-none focus:outline-none xl:order-last"
         >
           <!-- Start main area-->
           <div class="absolute inset-0 bg-deep-blue">
@@ -379,11 +384,32 @@
                 class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-nowrap"
               >
                 <div class="ml-4 mt-4">
-                  <h3
-                    class="text-lg my-1.5 leading-6 font-medium text-gray-900"
-                  >
-                    Preview
+                  <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    {{ formName || 'form' }}
                   </h3>
+                </div>
+                <div class="relative ml-4 mt-4 flex-shrink-0 space-x-2">
+                  <button
+                    type="button"
+                    class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    @click="uploadForm()"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                      />
+                    </svg>
+                    <p class="text-lg">Upload</p>
+                  </button>
                 </div>
               </div>
             </div>
@@ -405,6 +431,18 @@
                   v-if="selectedStep && selectedStep.type === 'number'"
                   :config="selectedStep"
                 />
+                <FormInputSelect
+                  v-if="selectedStep && selectedStep.type === 'select'"
+                  :config="selectedStep"
+                />
+                <FormInputCheckbox
+                  v-if="selectedStep && selectedStep.type === 'checkbox'"
+                  :config="selectedStep"
+                />
+                <FormInputYesNo
+                  v-if="selectedStep && selectedStep.type === 'yesNo'"
+                  :config="selectedStep"
+                />
               </div>
             </div>
           </div>
@@ -424,23 +462,20 @@
                 </h3>
               </div>
             </div>
-            <div>
-              <AppSettingsShortText
-                v-if="selectedStep && selectedStep.type === 'shortText'"
-                @valueChanged="updateValue($event)"
-              />
-              <AppSettingsLongText
-                v-if="selectedStep && selectedStep.type === 'longText'"
-                @valueChanged="updateValue($event)"
-              />
-              <AppSettingsEmail
-                v-if="selectedStep && selectedStep.type === 'email'"
-                @valueChanged="updateValue($event)"
-              />
-              <AppSettingsNumber
-                v-if="selectedStep && selectedStep.type === 'number'"
-                @valueChanged="updateValue($event)"
-              />
+          </div>
+
+          <div class="px-4 py-5 sm:px-6">
+            <AppSettingsAllStepsSettings
+              :selected-step="selectedStep"
+              @valueChanged="updateValue($event)"
+            />
+            <div
+              v-show="selectedStep"
+              class="mt-6 flex items-center w-full justify-end"
+            >
+              <p class="text-red-500" @click="removeStep(selectedStep)">
+                Delete Step
+              </p>
             </div>
           </div>
           <!-- End secondary column -->
@@ -452,6 +487,7 @@
 
 <script>
 import draggable from 'vuedraggable'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     draggable,
@@ -459,11 +495,15 @@ export default {
   data() {
     return {
       selectedStep: null,
-      showSlideOver: false,
+      showPopup: false,
       steps: [],
     }
   },
   computed: {
+    ...mapGetters({
+      formName: 'getFormName',
+      formId: 'getFormId',
+    }),
     indexCurrentStep() {
       return this.steps.findIndex((step) => {
         return step.id === this.selectedStep.id
@@ -477,10 +517,29 @@ export default {
     addStep(step) {
       this.steps.push(step)
       this.selectStep(step)
+      this.showPopup = false
+    },
+    removeStep(step) {
+      const index = this.steps.findIndex((s) => {
+        return s.id === step.id
+      })
+      this.steps.splice(index, 1)
+      if (this.steps.length > 0) {
+        this.selectStep(this.steps[0])
+      } else {
+        this.selectedStep = null
+      }
     },
     selectStep(step) {
       const index = this.steps.findIndex((s) => s.id === step.id)
       this.selectedStep = this.steps[index]
+    },
+    async uploadForm() {
+      const result = await this.$axios.post('/form/publish-form', {
+        id: this.formId,
+        steps: this.steps,
+      })
+      console.log(result)
     },
   },
 }

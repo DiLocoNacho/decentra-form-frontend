@@ -1,3 +1,4 @@
+require('dotenv').config()
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -34,12 +35,18 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/toast',
+    '@nuxtjs/dotenv',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
+  },
+
+  env: {
+    BASE_URL: process.env.BASE_URL,
+    NODE_ENV: process.env.NODE_ENV,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

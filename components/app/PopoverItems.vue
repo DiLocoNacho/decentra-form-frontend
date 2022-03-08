@@ -66,7 +66,6 @@
                 </div>
               </div>
               <ul class="relative flex-1 py-6 px-4 sm:px-6 space-y-2">
-                <!-- Replace with your content -->
                 <li
                   v-for="(step, index) in types"
                   :key="index"
@@ -82,7 +81,6 @@
                   </div>
                   <p>{{ step.name }}</p>
                 </li>
-                <!-- /End replace -->
               </ul>
             </div>
           </div>
@@ -93,75 +91,12 @@
 </template>
 
 <script>
+import inputTypes from '@/assets/form/input-types.json'
 export default {
-  data() {
-    return {
-      types: [
-        {
-          type: 'shortText',
-          name: 'Short Text',
-          title: 'Your Title',
-          description: 'Describe your question',
-          placeholder: 'Placeholder Answer',
-          required: false,
-          color: 'bg-red-400',
-        },
-        {
-          type: 'longText',
-          name: 'Long Text',
-          title: 'Your Title',
-          description: 'Describe your question',
-          placeholder: 'Placeholder Answer',
-          required: false,
-          color: 'bg-blue-400',
-        },
-        {
-          type: 'email',
-          name: 'Email',
-          title: 'Your Title',
-          description: 'Describe your question',
-          placeholder: 'Placeholder Anser',
-          required: false,
-          color: 'bg-amber-400',
-        },
-        {
-          type: 'number',
-          name: 'Number',
-          title: 'Your Title',
-          description: 'Describe your question',
-          placeholder: 1,
-          required: false,
-          color: 'bg-green-400',
-        },
-        {
-          type: 'select',
-          name: 'Select',
-          title: 'Your Title',
-          description: 'Describe your question',
-          placeholder: 'Placeholder Answer',
-          required: false,
-          color: 'bg-purple-400',
-        },
-        {
-          type: 'checkbox',
-          name: 'Checkbox',
-          title: 'Your Title',
-          description: 'Describe your question',
-          placeholder: 'Placeholder Answer',
-          required: false,
-          color: 'bg-teal-400',
-        },
-        {
-          type: 'yesNo',
-          name: 'Yes/No',
-          title: 'Your Title',
-          description: 'Describe your question',
-          placeholder: 'Placeholder Answer',
-          required: false,
-          color: 'bg-cyan-400',
-        },
-      ],
-    }
+  computed: {
+    types() {
+      return inputTypes
+    },
   },
   methods: {
     addStep(step) {

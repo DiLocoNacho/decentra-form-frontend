@@ -16,64 +16,20 @@
     <div
       class="mt-4 border-t border-b border-gray-200 divide-y divide-gray-200"
     >
-      <div class="relative flex items-start py-4">
+      <div
+        v-for="(option, index) of config.options"
+        :key="index"
+        class="relative flex items-start py-4"
+      >
         <div class="min-w-0 flex-1 text-sm">
-          <label for="option-1" class="font-medium text-gray-700 select-none"
-            >Option 1</label
-          >
+          <label :for="index" class="font-medium text-gray-700 select-none">{{
+            option.option
+          }}</label>
         </div>
         <div class="ml-3 flex items-center h-5">
           <input
-            id="option-1"
-            name="option-1"
-            type="checkbox"
-            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-          />
-        </div>
-      </div>
-
-      <div class="relative flex items-start py-4">
-        <div class="min-w-0 flex-1 text-sm">
-          <label for="option-2" class="font-medium text-gray-700 select-none"
-            >Option 2</label
-          >
-        </div>
-        <div class="ml-3 flex items-center h-5">
-          <input
-            id="option-2"
-            name="option-2"
-            type="checkbox"
-            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-          />
-        </div>
-      </div>
-
-      <div class="relative flex items-start py-4">
-        <div class="min-w-0 flex-1 text-sm">
-          <label for="option-3" class="font-medium text-gray-700 select-none"
-            >Option 3</label
-          >
-        </div>
-        <div class="ml-3 flex items-center h-5">
-          <input
-            id="option-3"
-            name="option-3"
-            type="checkbox"
-            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-          />
-        </div>
-      </div>
-
-      <div class="relative flex items-start py-4">
-        <div class="min-w-0 flex-1 text-sm">
-          <label for="option-4" class="font-medium text-gray-700 select-none"
-            >Option 4</label
-          >
-        </div>
-        <div class="ml-3 flex items-center h-5">
-          <input
-            id="option-4"
-            name="option-4"
+            :id="index"
+            :name="index"
             type="checkbox"
             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
           />
