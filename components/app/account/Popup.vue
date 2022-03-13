@@ -9,7 +9,7 @@
       class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
     >
       <div
-        class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+        class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"
         aria-hidden="true"
         @click="$emit('close')"
       ></div>
@@ -20,32 +20,43 @@
         >&#8203;</span
       >
       <div
-        class="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
+        class="relative inline-block align-bottom bg-white rounded-lg p-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
       >
-        <div>
-          <div class="mt-3 text-center sm:mt-5">
-            <h3
-              class="text-2xl leading-6 font-medium text-gray-900"
-              id="modal-title"
-            >
-              Let's give your form a name
-            </h3>
-            <div class="mt-2">
-              <input
-                v-model="formName"
-                type="text"
-                @keyup.enter="createForm()"
-              />
-            </div>
-          </div>
+        <div class="w-full border-b border-secondary border-opacity-20">
+          <h3 class="pb-4 text-3xl text-secondary font-semibold">
+            Create a form
+          </h3>
         </div>
-        <div class="mt-5 sm:mt-6">
+        <input
+          v-model="formName"
+          type="text"
+          placeholder="Name of your form"
+          class="mt-4 w-full px-4 py-2 text-secondary text-opacity-80 placeholder-opacity-60 placeholder-secondary border border-primary border-opacity-40 rounded-lg"
+          @keydown.enter="createForm()"
+        />
+        <div class="mt-4 flex items-center justify-end">
           <button
             type="button"
-            class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             @click="createForm()"
           >
-            Create Form
+            <!-- Heroicon name: solid/plus -->
+            <svg
+              v-if="!loading"
+              class="-ml-1 mr-2 h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <p v-if="!loading">Create Form</p>
+            <p v-else class="animate-pulse">Loading...</p>
           </button>
         </div>
       </div>
@@ -58,23 +69,36 @@ export default {
   data() {
     return {
       formName: '',
+      loading: false,
     }
   },
   methods: {
     async createForm() {
-      if (this.formName.length <= 0) return
+      this.loading = true
+      if (this.formName.length <= 0) {
+        this.loading = false
+        return this.$toast.error('Please fill in a name for your form', {
+          duration: 2000,
+        })
+      }
       const id = this.$uuid.v4()
+      // Change --> addres to current address
       const result = await this.$axios.post('/form/create', {
         id,
         name: this.formName,
         address: ['david'],
       })
-      console.log(result)
-      // Change --> error message here
-      if (!result.data.success) return
+      if (!result.data.success) {
+        this.loading = false
+        return this.$toast.error(
+          result.data.message || 'An error occured. Try again later',
+          { duration: 2000 }
+        )
+      }
       this.$store.commit('SET_FORM_NAME', this.formName)
       this.$store.commit('SET_FORM_ID', id)
       this.$router.push('/app/new-form')
+      this.loading = false
     },
   },
 }

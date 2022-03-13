@@ -1,9 +1,9 @@
 <template>
   <!-- This example requires Tailwind CSS v2.0+ -->
   <div
-    class="group w-full h-full flex flex-col items-center justify-center space-y-2 py-6 border-2 border-gray-300 border-dashed rounded-lg"
+    class="group w-full h-full p-6 flex flex-col items-center justify-center border-2 border-secondary border-opacity-10 border-dashed rounded-lg text-center"
   >
-    <svg
+    <!-- <svg
       class="mx-auto h-12 w-12 text-gray-400"
       fill="none"
       viewBox="0 0 24 24"
@@ -17,16 +17,15 @@
         stroke-width="2"
         d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
       />
-    </svg>
-    <h3 class="mt-2 text-sm font-medium text-gray-900">No Forms</h3>
-    <p class="mt-1 text-sm text-gray-500">
+    </svg> -->
+    <h3 class="text-2xl font-medium text-secondary">There's Nothing Here</h3>
+    <p class="mt-2 text-xl font-light text-secondary text-opacity-60">
       Get started by creating a new form.
     </p>
     <div class="mt-6">
-      <nuxt-link
-        to="/app/new-form"
-        type="button"
-        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      <button
+        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        @click="$emit('showPopup')"
       >
         <!-- Heroicon name: solid/plus -->
         <svg
@@ -43,7 +42,7 @@
           />
         </svg>
         New Form
-      </nuxt-link>
+      </button>
     </div>
   </div>
 </template>

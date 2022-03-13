@@ -1,10 +1,10 @@
 <template>
-  <li class="relative">
+  <li class="group relative cursor-pointer">
     <div
-      class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden"
+      class="block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden"
     >
       <img
-        :src="src"
+        src="https://lh3.googleusercontent.com/lW22aEwUE0IqGaYm5HRiMS8DwkDwsdjPpprEqYnBqo2s7gSR-JqcYOjU9LM6p32ujG_YAEd72aDyox-pdCVK10G-u1qZ3zAsn2r9=s0"
         alt=""
         class="object-cover pointer-events-none group-hover:opacity-75"
       />
@@ -15,11 +15,13 @@
     <div class="flex items-center justify-between">
       <div>
         <p
-          class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none"
+          class="mt-2 block text-base font-medium text-secondary truncate pointer-events-none"
         >
           {{ form.config.name }}
         </p>
-        <p class="block text-sm font-medium text-gray-500 pointer-events-none">
+        <p
+          class="block text-sm font-light text-secondary text-opacity-60 pointer-events-none"
+        >
           {{ form.responses || 0 }} responses
         </p>
       </div>

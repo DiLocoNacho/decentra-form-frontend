@@ -1,0 +1,85 @@
+{
+  "id": "123456789",
+  "config": {
+    "name": "Invisible Friends",
+    "description": "A form to collect the favorite pizza of all Invisible Friends holders!",
+    "image": "https://lh3.googleusercontent.com/lW22aEwUE0IqGaYm5HRiMS8DwkDwsdjPpprEqYnBqo2s7gSR-JqcYOjU9LM6p32ujG_YAEd72aDyox-pdCVK10G-u1qZ3zAsn2r9=s0",
+    "background": "#FEFEFE",
+    "primary": "#FF017B",
+    "secondary": "#2A2460"
+  },
+  "steps": [
+    {
+      "id": "s1",
+      "type": "shortText",
+      "title": "Name",
+      "description": "What is your name?",
+      "placeholder": "Your name",
+      "required": true
+    },
+    {
+      "id": "s2",
+      "type": "shortText",
+      "title": "Name",
+      "description": "What is your name?",
+      "placeholder": "Your name",
+      "required": true
+    },
+    {
+      "id": "s3",
+      "type": "shortText",
+      "title": "Name",
+      "description": "What is your name?",
+      "placeholder": "Your name",
+      "required": true
+    },
+    {
+      "id": "s4",
+      "type": "shortText",
+      "title": "Name",
+      "description": "What is your name?",
+      "placeholder": "Your name",
+      "required": true
+    },
+    {
+      "id": "s5",
+      "type": "shortText",
+      "title": "Name",
+      "description": "What is your name?",
+      "placeholder": "Your name",
+      "required": true
+    },
+    {
+      "id": "s6",
+      "type": "shortText",
+      "title": "Name",
+      "description": "What is your name?",
+      "placeholder": "Your name",
+      "required": true
+    },
+    {
+      "id": "s7",
+      "type": "shortText",
+      "title": "Name",
+      "description": "What is your name?",
+      "placeholder": "Your name",
+      "required": true
+    },
+    {
+      "id": "s8",
+      "type": "shortText",
+      "title": "Name",
+      "description": "What is your name?",
+      "placeholder": "Your name",
+      "required": true
+    },
+    {
+      "id": "s9",
+      "type": "shortText",
+      "title": "Name",
+      "description": "What is your name?",
+      "placeholder": "Your name",
+      "required": true
+    }
+  ]
+}
